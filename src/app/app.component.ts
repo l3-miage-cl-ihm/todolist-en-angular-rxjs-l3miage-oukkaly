@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, computed, signal } from '@angular/core';
+import { TodoListService } from './todo-list.service';
+import { TodoItem, TodoList, initialTDL } from './data/todolist';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +9,23 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  
+
+  readonly sigTodoList = signal<TodoList>(this.todoListService.sigTDL());
+
+  constructor(private todoListService: TodoListService){
+    // todoListService.appendItems(["yacine"]);
+  }
+
+  addNewTask(task : string) {
+    this.todoListService.appendItems([task]);
+  }
+
+  console(){}
+
+  deleteTask(task : TodoItem): void{
+    this.todoListService.deleteItems([task]);
+  }
+  // setSigTodoList(){
+
+  // }
 }
