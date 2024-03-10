@@ -1,6 +1,6 @@
 import { Injectable, Signal, computed, signal } from '@angular/core';
 import { TodolistServiceInterface } from './data/todo-list.interface';
-import { TodoList, TodoItem, initialTDL, appendItems, deleteItems } from './data/todolist';
+import { TodoList, TodoItem, initialTDL, appendItems, deleteItems, updateItems } from './data/todolist';
 import { NonEmptyList } from './data/utils';
 import { JsonPipe } from '@angular/common';
 
@@ -10,26 +10,29 @@ import { JsonPipe } from '@angular/common';
 export class TodoListService implements TodolistServiceInterface {
   //effet -> affiche la todo lista
   private _sigTDL = signal<TodoList>(initialTDL);  
-  readonly sigTDL: Signal<TodoList>;
+  readonly sigTDL: Signal<TodoList> = computed<TodoList>( ( ) => this._sigTDL());
 
   constructor() {
-    this.sigTDL = computed<TodoList>( ( ) => this._sigTDL());
+  }
+
+  updateLocalStorage(){
+    localStorage.clear;
+    localStorage.setItem("tdl",JSON.stringify(this.sigTDL()));
   }
 
   appendItems(labels: NonEmptyList<string>): this {
     this._sigTDL.set(appendItems(this.sigTDL(),labels));
-    localStorage.setItem("tdl",JSON.stringify(this.sigTDL()));    
+    this.updateLocalStorage();
     return this;
   }
   updateItems(up: Partial<TodoItem>, items: NonEmptyList<TodoItem>): this {
-    
+    this._sigTDL.set(updateItems(this.sigTDL(),up,items));
+    this.updateLocalStorage();
     return this;
   }
-  deleteItems(list: NonEmptyList<TodoItem>): this {
+  deleteItems(list: NonEmptyList<TodoItem>): this { 
     this._sigTDL.set(deleteItems(this.sigTDL(),list));
-    localStorage.clear;
-    localStorage.setItem("tdl",JSON.stringify(this.sigTDL())); 
-
+    this.updateLocalStorage();
     return this ;
   }
 }

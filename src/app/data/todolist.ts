@@ -84,7 +84,7 @@ export function updateItems(tdl: TodoList, up: Partial<TodoItem>, items: NonEmpt
  */
 export function deleteItems(tdl: TodoList, listItems: NonEmptyList<TodoItem>): TodoList {
     const items = tdl.items.filter(item => !listItems.includes(item));
-    return items.length == 0 ? tdl : { ...tdl, items };
+    return { ...tdl, items };
 }
 
 

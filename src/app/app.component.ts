@@ -19,8 +19,14 @@ export class AppComponent {
   addNewTask(task : string) {
     this.todoListService.appendItems([task]);
   }
+  
+  updateTaskCheck(task : TodoItem , state : boolean){
+    this.todoListService.updateItems({done: state} , [task]);
+  }
 
-  console(){}
+  updateTaskLabel(task : TodoItem , newLabel : string){
+    this.todoListService.updateItems({label: newLabel} , [task]);
+  }
 
   deleteTask(task : TodoItem): void{
     this.todoListService.deleteItems([task]);
