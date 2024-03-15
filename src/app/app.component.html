@@ -1,3 +1,4 @@
+<!-- 
 <h1></h1>
 Ajouter <form (submit)="addNewTask(newTodo.value)"> <input #newTodo></form>
 <ul *ngFor="let task of sigTodoList().items">
@@ -8,7 +9,13 @@ Ajouter <form (submit)="addNewTask(newTodo.value)"> <input #newTodo></form>
         </form>
         <button (click)="deleteTask(task)"> X </button>
     </li>
-</ul>
+</ul> -->
+
+<app-todo-list [tdl]="sigTodoList()"
+ (appenditems)="addNewTasks($event)" 
+ (deleteItems)="deleteTasks($event)" 
+ (updateItems)="updateTaskLabel($event)"
+ ></app-todo-list>
 
 <pre>
     {{sigTodoList() | json}}

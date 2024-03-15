@@ -1,6 +1,6 @@
 # TODO
 # Blocked 
-
+    * savoir comment utiliser les outputs 
 # Doing
 
 # DONE
