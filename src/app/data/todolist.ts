@@ -84,7 +84,7 @@ export function updateItems(tdl: TodoList, up: Partial<TodoItem>, items: NonEmpt
  */
 export function deleteItems(tdl: TodoList, listItems: NonEmptyList<TodoItem>): TodoList {
     const items = tdl.items.filter(item => !listItems.includes(item));
-    return items.length == 0 ? tdl : { ...tdl, items };
+    return { ...tdl, items };
 }
 
 
@@ -96,4 +96,28 @@ export function deleteItems(tdl: TodoList, listItems: NonEmptyList<TodoItem>): T
  */
 function itemPartiallyEqualTo(item: TodoItem, ref: Partial<TodoItem>): boolean {
     return (Object.keys(ref) as (keyof TodoItem)[]).every(k => ref[k] === item[k])
+}
+
+
+export interface TdlState {
+    readonly tdl: TodoList;
+    readonly nbItemsLeft: number;
+    readonly isAllDone: boolean;
+    readonly currentFilter: FCT_FILTER | null;
+    readonly filteredItems: readonly TodoItem[];
+  }
+  
+  // avec
+export type FCT_FILTER = (item: TodoItem) => boolean;
+  
+
+export interface ItemState {
+    readonly item: TodoItem;
+    readonly editing: boolean; // true ssi l'utilisateur est en train d'éditer le label de la tâche
+  }
+
+export const initialTodoItem :TodoItem = {
+    uid: -1,
+    label: "",
+    done: false
 }

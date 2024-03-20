@@ -7,5 +7,5 @@ export interface TodolistServiceInterface {
     appendItems(labels: NonEmptyList<string>): this;
     updateItems(up: Partial<TodoItem>, items: NonEmptyList<TodoItem>): this;
     deleteItems(list: NonEmptyList<TodoItem>): this;
-  }
+}
   
