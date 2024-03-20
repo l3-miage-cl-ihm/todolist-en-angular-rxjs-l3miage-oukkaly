@@ -1,4 +1,5 @@
 # TODO
+    * ajout des outputs de todoItem pour pouvoir avoir la réactivité dans la tdl
 # Blocked 
     * savoir comment utiliser les outputs 
 # Doing

@@ -12,27 +12,28 @@
       <input  class="toggle-all"
               type="checkbox"
               name="toggleAll"
-      />
-      <label for="toggleAll">Mark all as complete</label>
+              [ngModel]="sigTdlState().isAllDone"
+      /> 
+      <label *ngIf="!sigTdlState().isAllDone" for="toggleAll">Mark all as complete</label>
       <ul class="todo-list" >
         <li *ngFor="let item of sigTdlState().tdl.items">
-            <app-todo-item></app-todo-item>
+            <app-todo-item [item]="item"></app-todo-item>
         </li> 
       </ul>
     </section>
     <footer class="footer">
-      <span class="todo-count"><strong></strong> restantes</span>
+      <span class="todo-count"><strong>{{sigTdlState().nbItemsLeft}}</strong> restantes</span>
       <ul class="filters">
         <li>
-          <a class="filterAll">Tous</a>
+          <a class="filterAll" (click)="setFilterAll()" [class.selected]="sigTdlState().currentFilter === filterAll">Tous</a>
         </li>
         <li>
-          <a class="filterActives">Actifs</a>
+          <a class="filterActives" (click)="setFilterUndone()" [class.selected]="sigTdlState().currentFilter === filterUndone">Actifs</a>
         </li>
         <li>
-          <a class="filterCompleted">Complétés</a>
+          <a class="filterCompleted" (click)="setFilterDone()" [class.selected]="sigTdlState().currentFilter === filterDone">Complétés</a>
         </li>
       </ul>
-      <button class="clear-completed">Supprimer cochées</button>
+      <button *ngIf="hasAtLeastOneDoneItem()" class="clear-completed">Supprimer cochées</button>
     </footer>
   </section>

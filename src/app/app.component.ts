@@ -35,6 +35,7 @@ export class AppComponent {
   deleteTasks(tasks : NonEmptyList<TodoItem>): void{
     this.todoListService.deleteItems(tasks);
   }
+  
   // setSigTodoList(){
 
   // }

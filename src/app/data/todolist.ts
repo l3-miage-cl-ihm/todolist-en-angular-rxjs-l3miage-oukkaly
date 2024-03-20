@@ -110,3 +110,14 @@ export interface TdlState {
   // avec
 export type FCT_FILTER = (item: TodoItem) => boolean;
   
+
+export interface ItemState {
+    readonly item: TodoItem;
+    readonly editing: boolean; // true ssi l'utilisateur est en train d'éditer le label de la tâche
+  }
+
+export const initialTodoItem :TodoItem = {
+    uid: -1,
+    label: "",
+    done: false
+}
