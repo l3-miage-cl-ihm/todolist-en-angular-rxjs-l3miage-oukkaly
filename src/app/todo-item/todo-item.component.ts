@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, computed, signal } from '@angular/core';
 import { ItemState, TodoItem, initialTodoItem } from '../data/todolist';
+import { Statement } from '@angular/compiler';
 
 @Component({
   selector: 'app-todo-item',
@@ -8,6 +9,7 @@ import { ItemState, TodoItem, initialTodoItem } from '../data/todolist';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoItemComponent {
+
   
   private readonly _sigItem = signal<TodoItem>(initialTodoItem);
 
@@ -31,13 +33,20 @@ export class TodoItemComponent {
     editing: this.sigEditing()
   })
   )
-  readonly itemState = computed<ItemState>(() => this._sigItemState());
+  readonly sigItemState = computed<ItemState>(() => this._sigItemState());
 
 
-  updateItem(item: Partial<TodoItem>){
-    this.update.emit(item)
+  protected setSigEditing(status : boolean){
+    this._sigEditing.set(status);
   }
-  destroy(item: TodoItem){
-    this.delete.emit(item)
+  updateItem(label: string){
+    this.update.emit({...this.item,label})
+  }
+  destroy(){
+    this.delete.emit(this.sigItemState().item);
+  }
+
+  toggleCheckBox(doneStatus: boolean) {
+    this.update.emit({...this.item,done:doneStatus});
   }
 }

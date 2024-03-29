@@ -69,6 +69,18 @@ export class TodoListComponent {
     this._sigTdlState.update((stl) => ({...stl,currentFilter: this.filterUndone}))
   }
 
+  deleteItem(item : TodoItem){
+    this.deleteItems.emit([item]);
+  }
+
+  updateItem(change:Partial<TodoItem> ,  updateditem : TodoItem){
+    this.updateItems.emit([change , [updateditem]]);
+  }
+
+  deleteChecked(){
+    
+  }
+
 
 }
 

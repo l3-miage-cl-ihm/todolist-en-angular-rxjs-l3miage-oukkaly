@@ -1,15 +1,20 @@
+  <!-- <pre>{{sigItemState() | json}}</pre> -->
   <div class="view">
     <input  class = "toggle"
             type = "checkbox"
             name = "done"
+            [ngModel]="sigItemState().item.done"
+            (ngModelChange)="toggleCheckBox(!this.sigItemState().item.done)"
     />
-    <label class="texte" #text>
+    <label class="texte" (dblclick)="setSigEditing(true)" #text>
+      {{this.sigItemState().item.label}}
     </label>
-    <button class="destroy" ></button>
+    <button class="destroy" (click)="destroy()"></button>
   </div>
-  <form>
+  <form (submit)="updateItem(newTextInput.value)" >
     <input  #newTextInput
             name = "newTextInput"
             class = "edit"
+            [ngModel]="this.sigItemState().item.label"
     />
   </form>
