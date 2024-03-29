@@ -1,1 +1,23 @@
-Todolist...
+<!-- 
+<h1></h1>
+Ajouter <form (submit)="addNewTasks([newTodo.value])"> <input #newTodo></form>
+<ul *ngFor="let task of sigTodoList().items">
+    <li>
+        <input [ngModel]="task.done" type="checkbox" (ngModelChange)="updateTaskCheck(task, $event)"/>
+        <form (submit)="updateTaskLabel([task , newLabel.value])">
+            <input [ngModel]="task.label" type="text" name="newLabel" #newLabel />
+        </form>
+        <button (click)="deleteTask(task)"> X </button>
+    </li>
+</ul>  -->
+
+
+<app-todo-list [tdl]="sigTodoList()"
+ (appenditems)="addNewTasks($event)" 
+ (deleteItems)="deleteTasks($event)" 
+ (updateItems)="updateTaskLabel($event)"
+ ></app-todo-list>
+
+<pre>
+    {{sigTodoList() | json}}
+</pre>

@@ -1,0 +1,39 @@
+<section class="todoapp">
+    <header class="header">
+      <h1></h1>
+      <form (submit)="emitAppendItems(lab.value)" >
+        <input  name        = "newTodoInput"
+                class       = "new-todo"
+                placeholder = "Que faire?"
+                autofocus #lab/>
+      </form>
+    </header>
+    <section class="main">
+      <input  class="toggle-all"
+              type="checkbox"
+              name="toggleAll"
+              [ngModel]="sigTdlState().isAllDone"
+      /> 
+      <label *ngIf="!sigTdlState().isAllDone" for="toggleAll">Mark all as complete</label>
+      <ul class="todo-list" >
+        <li *ngFor="let item of sigTdlState().tdl.items">
+            <app-todo-item [item]="item" (delete)="deleteItem($event)" (update)="updateItem($event , item)" ></app-todo-item>
+        </li> 
+      </ul>
+    </section>
+    <footer class="footer">
+      <span class="todo-count"><strong>{{sigTdlState().nbItemsLeft}}</strong> restantes</span>
+      <ul class="filters">
+        <li>
+          <a class="filterAll" (click)="setFilterAll()" [class.selected]="sigTdlState().currentFilter === filterAll">Tous</a>
+        </li>
+        <li>
+          <a class="filterActives" (click)="setFilterUndone()" [class.selected]="sigTdlState().currentFilter === filterUndone">Actifs</a>
+        </li>
+        <li>
+          <a class="filterCompleted" (click)="setFilterDone()" [class.selected]="sigTdlState().currentFilter === filterDone">Complétés</a>
+        </li>
+      </ul>
+      <button *ngIf="hasAtLeastOneDoneItem()" class="clear-completed">Supprimer cochées</button>
+    </footer>
+  </section>
